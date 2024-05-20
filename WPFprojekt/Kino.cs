@@ -4,12 +4,10 @@
     {
         public int Id { get; }
         public string Name { get; }
-        public string Address { get; }
-        public Kino(int id, string name, string address)
+        public Kino(int id, string name)
         {
             Id = id;
             Name = name;
-            Address = address;
         }
     }
 }

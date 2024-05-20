@@ -17,17 +17,17 @@
         </Grid.ColumnDefinitions>
 
         <ListBox Grid.Column="0"
-                 Name="PeopleListBox"
-                 ItemsSource="{Binding Path=People, RelativeSource={RelativeSource FindAncestor, 
+                 Name="SeanseListBox"
+                 ItemsSource="{Binding Path=Seanse, RelativeSource={RelativeSource FindAncestor, 
                     AncestorType={x:Type Window}}, Mode=OneTime}"
                  SelectedIndex="{Binding Path=SelectedIndex, RelativeSource={RelativeSource FindAncestor,
                     AncestorType={x:Type Window}}, Mode=TwoWay}"
-                 DisplayMemberPath="NameSurnameEmail">
+                 DisplayMemberPath="SeansInfo">
         </ListBox>
 
         <DockPanel Grid.Column="1">
             <StackPanel DockPanel.Dock="Top"
-                        DataContext="{Binding ElementName=PeopleListBox,Path=SelectedItem}">
+                        DataContext="{Binding ElementName=SeanseListBox,Path=SelectedItem}">
                 
                 <Grid IsEnabled="{Binding Path=ItemSelected,RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type Window}}, Mode=OneWay}">
                     <Grid.RowDefinitions>
@@ -41,11 +41,11 @@
 
                     <Label Grid.Column="0" Grid.Row="0">Tytuł</Label>
                     <TextBox Grid.Column="1" Grid.Row="0" Margin="2" 
-                             Text="{Binding Path=Name, Mode=TwoWay}"/>
+                             Text="{Binding Path=Nazwa, Mode=TwoWay}"/>
 
-                    <Label Grid.Column="0" Grid.Row="1">Gatunek</Label>
+                    <Label Grid.Column="0" Grid.Row="1">Czas</Label>
                     <TextBox Grid.Column="1" Grid.Row="1" Margin="2"
-                             Text="{Binding Path=Surname, Mode=TwoWay}"/>
+                             Text="{Binding Path=Czas, Mode=TwoWay}"/>
                 </Grid>
 
                 <GroupBox>
@@ -72,11 +72,11 @@
 
                         <Label Grid.Column="0" Grid.Row="0">Cena biletu</Label>
                         <TextBox Grid.Column="1" Grid.Row="0" Margin="2"
-                                 Text="{Binding Path=EmailAddress, Mode=TwoWay}"/>
+                                 Text="{Binding Path=Cena_biletu, Mode=TwoWay}"/>
 
                         <Label Grid.Column="0" Grid.Row="1">Sala</Label>
                         <TextBox Grid.Column="1" Grid.Row="1" Margin="2"
-                                 Text="{Binding Path=Payment, Mode=TwoWay}"/>
+                                 Text="{Binding Path=Sala, Mode=TwoWay}"/>
 
                         <Label Grid.Column="0" Grid.Row="2">Kino</Label>
                         <ComboBox Grid.Column="1" Grid.Row="2" Margin="2"
@@ -89,7 +89,8 @@
                         <Label Grid.Column="0" Grid.Row="3">Gatunek</Label>
                         <ComboBox Grid.Column="1" Grid.Row="3" Margin="2"
                                   ItemsSource="{Binding Path=Gatunki,RelativeSource={RelativeSource FindAncestor,
-                                    AncestorType={x:Type Window}},Mode=OneTime}"
+                                    AncestorType={x:Type Window}},
+                                    Mode=OneTime}"
                                   SelectedValue="{Binding Path=GatunekId, Mode=TwoWay}"
                                   SelectedValuePath="Id"
                                   DisplayMemberPath="Name"/>
@@ -102,12 +103,12 @@
                 <Button Margin="3" VerticalAlignment="Bottom"
                         IsEnabled="{Binding Path=ItemSelected,
                          RelativeSource={RelativeSource FindAncestor,   
-                         AncestorType={x:Type Window}}, Mode=OneWay}">
+                         AncestorType={x:Type Window}}, Mode=OneWay}" Click="DeleteMovieClick">
                 Usuń
             </Button>
             <Button DockPanel.Dock="Bottom"
                     VerticalAlignment="Bottom"
-                    Margin="3">
+                    Margin="3" Click="AddMovieClick">
                     Dodaj nowy seans
             </Button>
             </StackPanel>

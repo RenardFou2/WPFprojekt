@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -22,11 +23,11 @@ namespace WPFprojekt
 
         public static Kino[] Kina { get; } = new Kino[]
         {
-            new Kino(0, "Helios","Czeslawa Milosza 2"),
-            new Kino(1, "Helios","Świętojańska 15"),
-            new Kino(2, "Helios","Jurowiecka 1"),
-            new Kino(3, "Forum","Legionowa 5"),
-            new Kino(4, "TON","Rynek Kościuszki 2"),
+            new Kino(0, "Helios, Czeslawa Milosza 2"),
+            new Kino(1, "Helios, Świętojańska 15"),
+            new Kino(2, "Helios, Jurowiecka 1"),
+            new Kino(3, "Forum, Legionowa 5"),
+            new Kino(4, "TON, Rynek Kościuszki 2"),
 
         };
         public static Gatunek[] Gatunki { get; } = new Gatunek[]
@@ -41,7 +42,6 @@ namespace WPFprojekt
             new Gatunek(7, "Kreskówka"),
             new Gatunek(8, "Thriller"),
             new Gatunek(9, "Sensacyjny"),
-            new Gatunek(10, "Wojenny"),
         };
 
         private bool? detailsChecked;
@@ -89,6 +89,31 @@ namespace WPFprojekt
         {
             DetailsChecked = false;
             SelectedIndex = -1;
+        }
+
+        public ObservableCollection<Seans> Seanse { get; } = new ObservableCollection<Seans>();
+
+        private void DeleteMovieClick(object sender, RoutedEventArgs e)
+        {
+            int index = SelectedIndex;
+            int newIndex;
+            if (Seanse.Count == 0)
+                newIndex = -1;
+            else
+            {
+                if (index == Seanse.Count - 1)
+                    newIndex = index - 1;
+                else
+                    newIndex = index;
+            }
+            Seanse.RemoveAt(SelectedIndex);
+            SelectedIndex = newIndex;
+        }
+
+        private void AddMovieClick(object sender, RoutedEventArgs e)
+        {
+            Seanse.Add(new Seans());
+            SelectedIndex = Seanse.Count - 1;
         }
     }
 }

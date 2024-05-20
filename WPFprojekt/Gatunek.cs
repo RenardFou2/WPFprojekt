@@ -3,12 +3,12 @@
     public class Gatunek
     {
         public int Id { get; }
-        public string Nazwa { get; }
+        public string Name { get; }
 
-        public Gatunek(int Id, string Nazwa)
+        public Gatunek(int id, string nazwa)
         {
-            this.Id = Id;
-            this.Nazwa = Nazwa;
+            Id = id;
+            Name = nazwa;
         }
     }
 }
