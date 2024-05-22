@@ -43,8 +43,8 @@
                     <TextBox Grid.Column="1" Grid.Row="0" Margin="2" 
                              Text="{Binding Path=Nazwa, Mode=TwoWay}"/>
 
-                    <Label Grid.Column="0" Grid.Row="1">Czas</Label>
-                    <TextBox Grid.Column="1" Grid.Row="1" Margin="2"
+                    <Label Grid.Column="0" Grid.Row="1">Data</Label>
+                    <DatePicker Grid.Column="1" Grid.Row="1" Margin="2"
                              Text="{Binding Path=Czas, Mode=TwoWay}"/>
                 </Grid>
 
@@ -64,6 +64,7 @@
                             <RowDefinition Height="auto"/>
                             <RowDefinition Height="auto"/>
                             <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="auto"/>
@@ -74,20 +75,24 @@
                         <TextBox Grid.Column="1" Grid.Row="0" Margin="2"
                                  Text="{Binding Path=Cena_biletu, Mode=TwoWay}"/>
 
-                        <Label Grid.Column="0" Grid.Row="1">Sala</Label>
+                        <Label Grid.Column="0" Grid.Row="1">Długość seansu</Label>
                         <TextBox Grid.Column="1" Grid.Row="1" Margin="2"
+                                 Text="{Binding Path=Dlugosc, Mode=TwoWay}"/>
+
+                        <Label Grid.Column="0" Grid.Row="2">Sala</Label>
+                        <TextBox Grid.Column="1" Grid.Row="2" Margin="2"
                                  Text="{Binding Path=Sala, Mode=TwoWay}"/>
 
-                        <Label Grid.Column="0" Grid.Row="2">Kino</Label>
-                        <ComboBox Grid.Column="1" Grid.Row="2" Margin="2"
+                        <Label Grid.Column="0" Grid.Row="3">Kino</Label>
+                        <ComboBox Grid.Column="1" Grid.Row="3" Margin="2"
                                   ItemsSource="{Binding Path=Kina,RelativeSource={RelativeSource FindAncestor,
                                     AncestorType={x:Type Window}},
                                     Mode=OneTime}"
                                   SelectedValue="{Binding Path=KinoId, Mode=TwoWay}"
                                   SelectedValuePath="Id"
                                   DisplayMemberPath="Name"/>
-                        <Label Grid.Column="0" Grid.Row="3">Gatunek</Label>
-                        <ComboBox Grid.Column="1" Grid.Row="3" Margin="2"
+                        <Label Grid.Column="0" Grid.Row="4">Gatunek</Label>
+                        <ComboBox Grid.Column="1" Grid.Row="4" Margin="2"
                                   ItemsSource="{Binding Path=Gatunki,RelativeSource={RelativeSource FindAncestor,
                                     AncestorType={x:Type Window}},
                                     Mode=OneTime}"
