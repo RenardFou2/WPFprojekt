@@ -1,0 +1,112 @@
+﻿<Window x:Class="WPFprojekt.Scheduler"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WPFprojekt"
+      mc:Ignorable="d" 
+      Title="Harmonogram Seansów"
+      Height="500" 
+      Width="1000">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="158*"/>
+            <ColumnDefinition Width="254*"/>
+            <ColumnDefinition Width="30*"/>
+            <ColumnDefinition Width="99*"/>
+            <ColumnDefinition Width="459*"/>
+        </Grid.ColumnDefinitions>
+        <ScrollViewer  VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Grid.ColumnSpan="5">
+            <Grid x:Name="ScheduleGrid" ShowGridLines="True">
+                <!-- Kolumny dla godzin -->
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Wiersze dla dni -->
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                
+                <Rectangle
+                    Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="16"
+                    Fill="LightGray" />
+
+                <Rectangle
+                    Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="17"
+                    Fill="CornflowerBlue" Opacity="0.5"  />
+                <Rectangle
+                    Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="17"
+                    Fill="LightSeaGreen" Opacity="0.5"  />
+                <Rectangle
+                    Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="17"
+                    Fill="Orange" Opacity="0.5"  />
+                <Rectangle
+                    Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="17"
+                    Fill="PaleVioletRed" Opacity="0.5"  />
+                <Rectangle
+                    Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="17"
+                    Fill="MediumPurple" Opacity="0.5"  />
+                <Rectangle
+                    Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="17"
+                    Fill="YellowGreen" Opacity="0.5" />
+
+
+                <!-- Nagłówki kolumn (godziny) -->
+                <TextBlock Grid.Column="1" Grid.Row="0" Text="08:00" HorizontalAlignment="Center"/>
+                <TextBlock Grid.Column="2" Grid.Row="0" Text="09:00" HorizontalAlignment="Center"/>
+                <TextBlock Grid.Column="3" Grid.Row="0" Text="10:00" HorizontalAlignment="Center"/>
+                <TextBlock Grid.Column="4" Grid.Row="0" Text="11:00" HorizontalAlignment="Center"/>
+                <TextBlock Grid.Column="5" Grid.Row="0" Text="12:00" HorizontalAlignment="Center"/>
+                <TextBlock Grid.Column="6" Grid.Row="0" Text="13:00" HorizontalAlignment="Center"/>
+                <TextBlock Grid.Column="7" Grid.Row="0" Text="14:00" HorizontalAlignment="Center"/>
+                <TextBlock Grid.Column="8" Grid.Row="0" Text="15:00" HorizontalAlignment="Center"/>
+                <TextBlock Grid.Column="9" Grid.Row="0" Text="16:00" HorizontalAlignment="Center"/>
+                <TextBlock Grid.Column="10" Grid.Row="0" Text="17:00" HorizontalAlignment="Center"/>
+                <TextBlock Grid.Column="11" Grid.Row="0" Text="18:00" HorizontalAlignment="Center"/>
+                <TextBlock Grid.Column="12" Grid.Row="0" Text="19:00" HorizontalAlignment="Center"/>
+                <TextBlock Grid.Column="13" Grid.Row="0" Text="20:00" HorizontalAlignment="Center"/>
+                <TextBlock Grid.Column="14" Grid.Row="0" Text="21:00" HorizontalAlignment="Center"/>
+                <TextBlock Grid.Column="15" Grid.Row="0" Text="22:00" HorizontalAlignment="Center"/>
+                <TextBlock Grid.Column="16" Grid.Row="0" Text="23:00" HorizontalAlignment="Center"/>
+
+                <!-- Nagłówki wierszy (dni) -->
+                <TextBlock Grid.Column="0" Grid.Row="1" Text="Poniedziałek" VerticalAlignment="Center"/>
+                <TextBlock Grid.Column="0" Grid.Row="2" Text="Wtorek" VerticalAlignment="Center"/>
+                <TextBlock Grid.Column="0" Grid.Row="3" Text="Środa" VerticalAlignment="Center"/>
+                <TextBlock Grid.Column="0" Grid.Row="4" Text="Czwartek" VerticalAlignment="Center"/>
+                <TextBlock Grid.Column="0" Grid.Row="5" Text="Piątek" VerticalAlignment="Center"/>
+                <TextBlock Grid.Column="0" Grid.Row="6" Text="Sobota" VerticalAlignment="Center"/>
+
+                <Border Margin="66,0,0,60" BorderBrush="Black" BorderThickness="2" Grid.ColumnSpan="17" Grid.RowSpan="7" Grid.Row="1"/>
+            </Grid>
+
+        </ScrollViewer>
+    </Grid>
+</Window>
