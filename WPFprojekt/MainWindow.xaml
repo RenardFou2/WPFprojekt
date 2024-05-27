@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:local="clr-namespace:WPFprojekt"
         mc:Ignorable="d"
         Title="Seanse"
@@ -22,7 +23,7 @@
                     AncestorType={x:Type Window}}, Mode=OneTime}"
                  SelectedIndex="{Binding Path=SelectedIndex, RelativeSource={RelativeSource FindAncestor,
                     AncestorType={x:Type Window}}, Mode=TwoWay}"
-                 DisplayMemberPath="SeansInfo">
+                 DisplayMemberPath="SeansInfo" d:ItemsSource="{d:SampleData ItemCount=5}">
         </ListBox>
 
         <DockPanel Grid.Column="1">
@@ -44,8 +45,8 @@
                              Text="{Binding Path=Nazwa, Mode=TwoWay}"/>
 
                     <Label Grid.Column="0" Grid.Row="1">Data</Label>
-                    <DatePicker Grid.Column="1" Grid.Row="1" Margin="2"
-                             Text="{Binding Path=Czas, Mode=TwoWay}"/>
+                    <xctk:DateTimePicker Grid.Column="1" Grid.Row="1" Margin="2" FormatString="dd-MM-yy hh:mm tt"
+                             Value="{Binding Path=Czas, Mode=TwoWay}"/>
                 </Grid>
 
                 <GroupBox>
@@ -116,8 +117,14 @@
                     Margin="3" Click="AddMovieClick">
                     Dodaj nowy seans
             </Button>
+
+            <Button DockPanel.Dock="Bottom"
+                    VerticalAlignment="Bottom"
+                    Margin="3" Click="OpenScheduleWindow">
+                    Otwórz harmonogram seansów
+            </Button>
             </StackPanel>
-            
+       
             
         </DockPanel>
     </Grid>

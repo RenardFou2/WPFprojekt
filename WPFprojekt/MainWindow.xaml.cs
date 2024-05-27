@@ -84,6 +84,7 @@ namespace WPFprojekt
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = this;
         }
         private void WindowLoaded(object sender, RoutedEventArgs e)
         {
@@ -114,6 +115,12 @@ namespace WPFprojekt
         {
             Seanse.Add(new Seans());
             SelectedIndex = Seanse.Count - 1;
+        }
+        private void OpenScheduleWindow(object sender, RoutedEventArgs e)
+        {
+            var seansy = Seanse.ToList();
+            var scheduleWindow = new Scheduler(seansy);
+            scheduleWindow.Show();
         }
     }
 }

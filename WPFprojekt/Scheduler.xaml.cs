@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,14 +16,16 @@ using System.Windows.Shapes;
 
 namespace WPFprojekt
 {
-    /// <summary>
-    /// Logika interakcji dla klasy Scheduler.xaml
-    /// </summary>
-    public partial class Scheduler : Page
+
+    public partial class Scheduler : Window
     {
-        public Scheduler()
+        public List<Seans> Seanse { get; set; }
+
+
+        public Scheduler(List<Seans> seansy)
         {
             InitializeComponent();
+            Seanse = seansy;
         }
     }
 }

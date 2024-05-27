@@ -3,8 +3,8 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:WPFprojekt"
-      mc:Ignorable="d" 
+      xmlns:local="clr-namespace:WPFprojekt" d:DataContext="{d:DesignInstance Type=local:MainWindow}"
+        mc:Ignorable="d" 
       Title="Harmonogram Seansów"
       Height="500" 
       Width="1000">
@@ -53,29 +53,29 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
-                
-                <Rectangle
-                    Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="16"
-                    Fill="LightGray" />
 
                 <Rectangle
-                    Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="17"
-                    Fill="CornflowerBlue" Opacity="0.5"  />
+            Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="16"
+            Fill="LightGray" />
+
                 <Rectangle
-                    Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="17"
-                    Fill="LightSeaGreen" Opacity="0.5"  />
+            Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="17"
+            Fill="CornflowerBlue" Opacity="0.5"  />
                 <Rectangle
-                    Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="17"
-                    Fill="Orange" Opacity="0.5"  />
+            Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="17"
+            Fill="Green" Opacity="0.5"  />
                 <Rectangle
-                    Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="17"
-                    Fill="PaleVioletRed" Opacity="0.5"  />
+            Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="17"
+            Fill="Orange" Opacity="0.5"  />
                 <Rectangle
-                    Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="17"
-                    Fill="MediumPurple" Opacity="0.5"  />
+            Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="17"
+            Fill="Red" Opacity="0.5"  />
                 <Rectangle
-                    Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="17"
-                    Fill="YellowGreen" Opacity="0.5" />
+            Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="17"
+            Fill="MediumPurple" Opacity="0.5"  />
+                <Rectangle
+            Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="17"
+            Fill="Yellow" Opacity="0.5" />
 
 
                 <!-- Nagłówki kolumn (godziny) -->
@@ -103,8 +103,33 @@
                 <TextBlock Grid.Column="0" Grid.Row="4" Text="Czwartek" VerticalAlignment="Center"/>
                 <TextBlock Grid.Column="0" Grid.Row="5" Text="Piątek" VerticalAlignment="Center"/>
                 <TextBlock Grid.Column="0" Grid.Row="6" Text="Sobota" VerticalAlignment="Center"/>
-
                 <Border Margin="66,0,0,60" BorderBrush="Black" BorderThickness="2" Grid.ColumnSpan="17" Grid.RowSpan="7" Grid.Row="1"/>
+
+                <!-- ItemsControl do bindowania seansów -->
+                <ItemsControl ItemsSource="{Binding Path=Seanse, 
+                    RelativeSource={RelativeSource FindAncestor, 
+                    AncestorType={x:Type Window}}, Mode=OneTime}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <Grid IsItemsHost="True"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Path=Nazwa}"
+                                       Background="LightBlue"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       Margin="5"/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                    <ItemsControl.ItemContainerStyle>
+                        <Style TargetType="ContentPresenter">
+                            <Setter Property="Grid.Row" Value="{Binding Path=Czas.DayOfWeek, Converter={StaticResource DayOfWeekToRowConverter}}"/>
+                            <Setter Property="Grid.Column" Value="{Binding Path=Czas.Hour, Converter={StaticResource HourToColumnConverter}}"/>
+                        </Style>
+                    </ItemsControl.ItemContainerStyle>
+                </ItemsControl>
             </Grid>
 
         </ScrollViewer>
