@@ -30,19 +30,6 @@ namespace WPFprojekt
             new Kino(4, "TON, Rynek Kościuszki 2"),
 
         };
-        public static Gatunek[] Gatunki { get; } = new Gatunek[]
-        {
-            new Gatunek(0, "Komedia"),
-            new Gatunek(1, "Dramat"),
-            new Gatunek(2, "Horor"),
-            new Gatunek(3, "Dokumentalny"),
-            new Gatunek(4, "Romans"),
-            new Gatunek(5, "Wojenny"),
-            new Gatunek(6, "familijny"),
-            new Gatunek(7, "Kreskówka"),
-            new Gatunek(8, "Thriller"),
-            new Gatunek(9, "Sensacyjny"),
-        };
 
         private bool? detailsChecked;
         public bool? DetailsChecked
@@ -85,6 +72,19 @@ namespace WPFprojekt
         {
             InitializeComponent();
             DataContext = this;
+            Filmy = new ObservableCollection<Film>
+            {
+                new Film(84, "Borat", "Komedia" , "Larry Charles"),
+                new Film(114, "Tropic Thunder", "Komedia" , "Ben Stiller"),
+                new Film(143, "Man of Steel", "Dramat" , "Zack Snyder"),
+                new Film(134, "Logan", "Dramat" , "James Mangold"),
+                new Film(125, "Jarhead", "Wojenny" , "Sam Mendes"),
+                new Film(134, "Fury", "Wojenny" , "David Ayer"),
+                new Film(127, "Real Steel", "Familijny" , "Shawn Levy"),
+                new Film(119, "Percy Jackson", "Familijny" , "Chris Columbus"),
+                new Film(94, "Kung Fu Panda 4", "Kreskówka" , "Mike Mitchell"),
+                new Film(109, "Rango", "Kreskówka" , "Gore Verbiński"),
+            };
         }
         private void WindowLoaded(object sender, RoutedEventArgs e)
         {
@@ -93,6 +93,7 @@ namespace WPFprojekt
         }
 
         public ObservableCollection<Seans> Seanse { get; } = new ObservableCollection<Seans>();
+        public ObservableCollection<Film> Filmy { get; }
 
         private void DeleteMovieClick(object sender, RoutedEventArgs e)
         {
@@ -113,14 +114,11 @@ namespace WPFprojekt
 
         private void AddMovieClick(object sender, RoutedEventArgs e)
         {
-            Seanse.Add(new Seans());
-            SelectedIndex = Seanse.Count - 1;
-        }
-        private void OpenScheduleWindow(object sender, RoutedEventArgs e)
-        {
-            var seansy = Seanse.ToList();
-            var scheduleWindow = new Scheduler(seansy);
-            scheduleWindow.Show();
+            var addSeansWindow = new AddSeansWindow(Filmy, Kina);
+            if (addSeansWindow.ShowDialog() == true)
+            {
+                Seanse.Add(addSeansWindow.Seans);
+            }
         }
     }
 }

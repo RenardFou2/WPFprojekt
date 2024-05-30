@@ -4,7 +4,5 @@
              xmlns:local="clr-namespace:WPFprojekt"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <local:DayOfWeekToRowConverter x:Key="DayOfWeekToRowConverter"/>
-        <local:HourToColumnConverter x:Key="HourToColumnConverter"/>
     </Application.Resources>
 </Application>

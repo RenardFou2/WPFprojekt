@@ -17,24 +17,20 @@ namespace WPFprojekt
             get
             {
                 if (string.IsNullOrEmpty(Sala))
-                    return $"{Nazwa}";
+                    return $"{film.Nazwa}";
                 else
-                    return $"{Nazwa} ({Sala})";
+                    return $"{film.Nazwa} ({Sala})";
             }
         }
+
+        public string Nazwa { get; set; }
+        public int Dlugosc { get; set; }
 
         public Seans()
         {
             Czas = DateTime.Now;
         }
-
-        private string nazwa;
-        public string Nazwa
-        {
-            get { return nazwa; }
-            set { nazwa = value; OnPropertyChanged("SeansInfo"); }
-        }
-
+        public Film film;
         public DateTime Czas { get; set; }
 
         private string sala;
@@ -43,10 +39,8 @@ namespace WPFprojekt
             get { return sala; }
             set { sala = value; OnPropertyChanged("SeansInfo"); }
         }
-        public int Dlugosc { get; set; }
         public decimal Cena_biletu { get; set; }
         public int KinoId { get; set; }
-        public int GatunekId { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged(string property)

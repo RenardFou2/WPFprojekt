@@ -23,7 +23,7 @@
                     AncestorType={x:Type Window}}, Mode=OneTime}"
                  SelectedIndex="{Binding Path=SelectedIndex, RelativeSource={RelativeSource FindAncestor,
                     AncestorType={x:Type Window}}, Mode=TwoWay}"
-                 DisplayMemberPath="SeansInfo" d:ItemsSource="{d:SampleData ItemCount=5}">
+                 DisplayMemberPath="SeansInfo">
         </ListBox>
 
         <DockPanel Grid.Column="1">
@@ -39,20 +39,12 @@
                         <ColumnDefinition Width="auto"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-
-                    <Label Grid.Column="0" Grid.Row="0">Tytuł</Label>
-                    <TextBox Grid.Column="1" Grid.Row="0" Margin="2" 
-                             Text="{Binding Path=Nazwa, Mode=TwoWay}"/>
-
-                    <Label Grid.Column="0" Grid.Row="1">Data</Label>
-                    <xctk:DateTimePicker Grid.Column="1" Grid.Row="1" Margin="2" FormatString="dd-MM-yy hh:mm tt"
-                             Value="{Binding Path=Czas, Mode=TwoWay}"/>
                 </Grid>
 
                 <GroupBox>
                     <GroupBox.Header>
                         <CheckBox IsChecked="{Binding Path=DetailsChecked, RelativeSource={RelativeSource FindAncestor,
-                                    AncestorType={x:Type Window}}, Mode=TwoWay}">Dane szczegółowe</CheckBox>
+                                    AncestorType={x:Type Window}}, Mode=TwoWay}">Szczegóły</CheckBox>
                     </GroupBox.Header>
                     
                     <Grid IsEnabled="{Binding Path=ItemSelected,RelativeSource={RelativeSource FindAncestor,
@@ -66,34 +58,45 @@
                             <RowDefinition Height="auto"/>
                             <RowDefinition Height="auto"/>
                             <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="auto"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
 
-                        <Label Grid.Column="0" Grid.Row="0">Cena biletu</Label>
-                        <TextBox Grid.Column="1" Grid.Row="0" Margin="2"
+
+                        <Label Grid.Column="0" Grid.Row="0">Tytuł</Label>
+                        <TextBox Grid.Column="1" Grid.Row="0" Margin="2" 
+                        Text="{Binding Path=Nazwa, Mode=TwoWay}"/>
+
+                        <Label Grid.Column="0" Grid.Row="1">Data</Label>
+                        <xctk:DateTimePicker Grid.Column="1" Grid.Row="1" Margin="2" FormatString="dd-MM-yy hh:mm tt"
+                        Value="{Binding Path=Czas, Mode=TwoWay}"/>
+                        
+                        <Label Grid.Column="0" Grid.Row="2">Cena biletu</Label>
+                        <TextBox Grid.Column="1" Grid.Row="2" Margin="2"
                                  Text="{Binding Path=Cena_biletu, Mode=TwoWay}"/>
 
-                        <Label Grid.Column="0" Grid.Row="1">Długość seansu</Label>
-                        <TextBox Grid.Column="1" Grid.Row="1" Margin="2"
+                        <Label Grid.Column="0" Grid.Row="3">Długość seansu</Label>
+                        <TextBox Grid.Column="1" Grid.Row="3" Margin="2"
                                  Text="{Binding Path=Dlugosc, Mode=TwoWay}"/>
 
-                        <Label Grid.Column="0" Grid.Row="2">Sala</Label>
-                        <TextBox Grid.Column="1" Grid.Row="2" Margin="2"
+                        <Label Grid.Column="0" Grid.Row="4">Sala</Label>
+                        <TextBox Grid.Column="1" Grid.Row="4" Margin="2"
                                  Text="{Binding Path=Sala, Mode=TwoWay}"/>
 
-                        <Label Grid.Column="0" Grid.Row="3">Kino</Label>
-                        <ComboBox Grid.Column="1" Grid.Row="3" Margin="2"
+                        <Label Grid.Column="0" Grid.Row="5">Kino</Label>
+                        <ComboBox Grid.Column="1" Grid.Row="5" Margin="2"
                                   ItemsSource="{Binding Path=Kina,RelativeSource={RelativeSource FindAncestor,
                                     AncestorType={x:Type Window}},
                                     Mode=OneTime}"
                                   SelectedValue="{Binding Path=KinoId, Mode=TwoWay}"
                                   SelectedValuePath="Id"
                                   DisplayMemberPath="Name"/>
-                        <Label Grid.Column="0" Grid.Row="4">Gatunek</Label>
-                        <ComboBox Grid.Column="1" Grid.Row="4" Margin="2"
+                        <Label Grid.Column="0" Grid.Row="6">Gatunek</Label>
+                        <ComboBox Grid.Column="1" Grid.Row="6" Margin="2"
                                   ItemsSource="{Binding Path=Gatunki,RelativeSource={RelativeSource FindAncestor,
                                     AncestorType={x:Type Window}},
                                     Mode=OneTime}"
@@ -120,7 +123,7 @@
 
             <Button DockPanel.Dock="Bottom"
                     VerticalAlignment="Bottom"
-                    Margin="3" Click="OpenScheduleWindow">
+                    Margin="3">
                     Otwórz harmonogram seansów
             </Button>
             </StackPanel>
