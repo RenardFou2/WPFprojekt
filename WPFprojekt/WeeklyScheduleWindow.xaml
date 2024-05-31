@@ -7,6 +7,18 @@
         mc:Ignorable="d"
         Title="Seanse w tym tygodniu" Height="450" Width="800">
     <Grid>
-        <ListBox Name="WeeklySeansListBox" DisplayMemberPath="SeansInfoSchedule" />
+        <ListView Name="WeeklyScheduleListView">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Tytuł" DisplayMemberBinding="{Binding Nazwa}" Width="150"/>
+                    <GridViewColumn Header="Czas" DisplayMemberBinding="{Binding Czas}" Width="200"/>
+                    <GridViewColumn Header="Sala" DisplayMemberBinding="{Binding Sala}" Width="100"/>
+                    <GridViewColumn Header="Cena biletu" DisplayMemberBinding="{Binding Cena_biletu}" Width="100"/>
+                    <GridViewColumn Header="Długość seansu" DisplayMemberBinding="{Binding Dlugosc}" Width="100"/>
+                    <GridViewColumn Header="Gatunek" DisplayMemberBinding="{Binding Gatunek}" Width="100"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Button Content="Drukuj harmonogram" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10" Click="PrintSchedule_Click"/>
     </Grid>
 </Window>

@@ -31,7 +31,8 @@
                         DataContext="{Binding ElementName=SeanseListBox,Path=SelectedItem}">
                 <GroupBox>
                     <GroupBox.Header>
-                        <CheckBox IsChecked="{Binding Path=DetailsChecked, RelativeSource={RelativeSource FindAncestor,
+                        <CheckBox ToolTip ="Wyświetla szczegóły seansu. Pozwala na edycję." 
+                                  IsChecked="{Binding Path=DetailsChecked, RelativeSource={RelativeSource FindAncestor,
                                     AncestorType={x:Type Window}}, Mode=TwoWay}">Szczegóły</CheckBox>
                     </GroupBox.Header>
 
@@ -93,7 +94,7 @@
             <StackPanel DockPanel.Dock="Top">
                 <GroupBox>
                     <GroupBox.Header>
-                        <CheckBox IsChecked="{Binding Path=FiltersChecked, RelativeSource={RelativeSource FindAncestor,
+                        <CheckBox ToolTip="Jeszcze nie zaimplementowane" IsChecked="{Binding Path=FiltersChecked, RelativeSource={RelativeSource FindAncestor,
                     AncestorType={x:Type Window}}, Mode=TwoWay}">Filtry</CheckBox>
                     </GroupBox.Header>
 
