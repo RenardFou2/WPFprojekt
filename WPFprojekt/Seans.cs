@@ -16,13 +16,19 @@ namespace WPFprojekt
         {
             get
             {
-                if (string.IsNullOrEmpty(Sala))
-                    return $"{film.Nazwa}";
-                else
-                    return $"{film.Nazwa} ({Sala})";
+                return $"{film.Nazwa} ({Sala})";
             }
         }
 
+        public string SeansInfoSchedule
+        {
+            get
+            {
+                return $"Film:{film.Nazwa}, || Reżyser: {film.Director},  || Data: {Czas}, || Sala: ({Sala}), ||  Gatunek: {Gatunek}, ||  Długość seansu (w minutach): {Dlugosc}";
+            }
+        }
+
+        public string Gatunek { get; set; }
         public string Nazwa { get; set; }
         public int Dlugosc { get; set; }
 

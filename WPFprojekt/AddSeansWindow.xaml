@@ -21,16 +21,21 @@
         <TextBlock Text="Film:" Grid.Row="0" VerticalAlignment="Center"/>
         <TextBox x:Name="filmNameTextBox" Grid.Row="0" Margin="100,0,0,0" IsReadOnly="True"/>
         <Button Content="..." Grid.Row="0" Padding="8,2" Click="SelectFilm_Click" HorizontalAlignment="Right"/>
+        <TextBlock x:Name="filmErrorTextBlock" Grid.Row="0" Margin="100,25,0,0" Foreground="Red" Visibility="Collapsed"/>
 
         <TextBlock Text="Time:" Grid.Row="1" VerticalAlignment="Center"/>
         <xctk:DateTimePicker x:Name="timeDatePicker" Grid.Row="1" Margin="100,0,0,0" Value="{Binding Seans.Czas, Mode=TwoWay}"
                              FormatString="dd-MM-yy hh:mm"/>
-
+        <TextBlock x:Name="timeErrorTextBlock" Grid.Row="1" Margin="100,25,0,0" Foreground="Red" Visibility="Collapsed"/>
+        
+        
         <TextBlock Text="Sala:" Grid.Row="2" VerticalAlignment="Center"/>
         <TextBox x:Name="salaTextBox" Grid.Row="2" Margin="100,0,0,0"/>
-
+        <TextBlock x:Name="salaErrorTextBlock" Grid.Row="2" Margin="100,25,0,0" Foreground="Red" Visibility="Collapsed"/>
+        
         <TextBlock Text="Ticket Price:" Grid.Row="3" VerticalAlignment="Center"/>
         <TextBox x:Name="cenaBiletuTextBox" Grid.Row="3" Margin="100,0,0,0"/>
+        <TextBlock x:Name="cenaErrorTextBlock" Grid.Row="3" Margin="100,25,0,0" Foreground="Red" Visibility="Collapsed"/>
 
         <TextBlock Text="Kino:" Grid.Row="4" VerticalAlignment="Center"/>
         <ComboBox x:Name="kinoComboBox" Grid.Row="4" Margin="100,0,0,0"
@@ -39,8 +44,10 @@
                     Mode=OneTime}"
                   SelectedValue="{Binding Path=KinoId, Mode=TwoWay}"
                   SelectedValuePath="Id"
-                  DisplayMemberPath="Name"/>
-
+                  DisplayMemberPath="Name"
+                  Text="Wybierz Kino"/>
+        <TextBlock x:Name="kinoErrorTextBlock" Grid.Row="4" Margin="100,25,0,0" Foreground="Red" Visibility="Collapsed"/>
+        
         <StackPanel Grid.Row="6" VerticalAlignment="Bottom" HorizontalAlignment="Right" >
             <Button Content="OK" Width="75" Click="OK_Click" Margin="0,0,0,5"/>
             <Button Content="Cancel" Width="75" Click="Cancel_Click"/>

@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -31,43 +33,6 @@ namespace WPFprojekt
 
         };
 
-        private bool? detailsChecked;
-        public bool? DetailsChecked
-        {
-            get { return detailsChecked; }
-            set
-            {
-                detailsChecked = value;
-                OnPropertyChanged("DetailsChecked");
-                if (detailsChecked == true)
-                    DetailsVisibility = Visibility.Visible;
-                else
-                    DetailsVisibility = Visibility.Hidden;
-                OnPropertyChanged("DetailsVisibility");
-            }
-        }
-        public Visibility DetailsVisibility { get; private set; }
-
-        private int selectedIndex;
-        public int SelectedIndex
-        {
-            get { return selectedIndex; }
-            set
-            {
-                selectedIndex = value;
-                OnPropertyChanged("SelectedIndex");
-                OnPropertyChanged("ItemSelected");
-            }
-        }
-        public bool ItemSelected { get { return SelectedIndex != -1; } }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        private void OnPropertyChanged(string property)
-        {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(property));
-        }
-
         public MainWindow()
         {
             InitializeComponent();
@@ -85,31 +50,115 @@ namespace WPFprojekt
                 new Film(94, "Kung Fu Panda 4", "Kreskówka" , "Mike Mitchell"),
                 new Film(109, "Rango", "Kreskówka" , "Gore Verbiński"),
             };
+            LoadSeans();
         }
+
+        private const string FilePath = "seanse.json";
+        private void SaveSeans()
+        {
+            var json = JsonConvert.SerializeObject(Seanse);
+            File.WriteAllText(FilePath, json);
+        }
+        private void LoadSeans()
+        {
+            if (File.Exists(FilePath))
+            {
+                var json = File.ReadAllText(FilePath);
+                Seanse = JsonConvert.DeserializeObject<ObservableCollection<Seans>>(json) ?? new ObservableCollection<Seans>();
+            }
+            else
+            {
+                Seanse = new ObservableCollection<Seans>();
+            }
+        }
+
         private void WindowLoaded(object sender, RoutedEventArgs e)
         {
             DetailsChecked = false;
+            FiltersChecked = false;
             SelectedIndex = -1;
         }
 
-        public ObservableCollection<Seans> Seanse { get; } = new ObservableCollection<Seans>();
+        private bool? detailsChecked;
+        public Visibility DetailsVisibility { get; private set; }
+        public bool? DetailsChecked
+        {
+            get { return detailsChecked; }
+            set
+            {
+                detailsChecked = value;
+                OnPropertyChanged("DetailsChecked");
+                if (detailsChecked == true)
+                    DetailsVisibility = Visibility.Visible;
+                else
+                    DetailsVisibility = Visibility.Hidden;
+                OnPropertyChanged("DetailsVisibility");
+            }
+        }
+
+        private bool? filtersChecked;
+        public Visibility FiltersVisibility { get; private set; }
+        public bool? FiltersChecked
+        {
+            get { return filtersChecked; }
+            set
+            {
+                filtersChecked = value;
+                OnPropertyChanged("FiltersChecked");
+                if (filtersChecked == true)
+                    FiltersVisibility = Visibility.Visible;
+                else
+                    FiltersVisibility = Visibility.Hidden;
+                OnPropertyChanged("FiltersVisibility");
+            }
+        }
+
+        private int selectedIndex;
+        public int SelectedIndex
+        {
+            get { return selectedIndex; }
+            set
+            {
+                selectedIndex = value;
+                OnPropertyChanged("SelectedIndex");
+                OnPropertyChanged("ItemSelected");
+            }
+        }
+        public bool ItemSelected { get { return SelectedIndex != -1; } }
+
+        public ObservableCollection<Seans> Seanse { get; set; }
+
         public ObservableCollection<Film> Filmy { get; }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void OnPropertyChanged(string property)
+        {
+            if (PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(property));
+        }
 
         private void DeleteMovieClick(object sender, RoutedEventArgs e)
         {
-            int index = SelectedIndex;
-            int newIndex;
-            if (Seanse.Count == 0)
-                newIndex = -1;
-            else
+            
+            MessageBoxResult result = MessageBox.Show("Czy na pewno chcesz usunąć ten seans?", 
+                "Potwierdzenie usunięcia", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+
+            if (result == MessageBoxResult.Yes)
             {
-                if (index == Seanse.Count - 1)
-                    newIndex = index - 1;
+                int index = SelectedIndex;
+                int newIndex;
+                if (Seanse.Count == 0)
+                    newIndex = -1;
                 else
-                    newIndex = index;
+                {
+                    if (index == Seanse.Count - 1)
+                        newIndex = index - 1;
+                    else
+                        newIndex = index;
+                }
+                Seanse.RemoveAt(SelectedIndex);
+                SelectedIndex = newIndex;
             }
-            Seanse.RemoveAt(SelectedIndex);
-            SelectedIndex = newIndex;
         }
 
         private void AddMovieClick(object sender, RoutedEventArgs e)
@@ -119,6 +168,24 @@ namespace WPFprojekt
             {
                 Seanse.Add(addSeansWindow.Seans);
             }
+        }
+
+        private void OpenWeeklyScheduleClick(object sender, RoutedEventArgs e)
+        {
+            DateTime startOfWeek = DateTime.Now.AddDays(-(int)DateTime.Now.DayOfWeek);
+            var weeklyScheduleWindow = new WeeklyScheduleWindow(Seanse, startOfWeek);
+            weeklyScheduleWindow.ShowDialog();
+        }
+
+        private void ApplyFiltersClick(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            base.OnClosing(e);
+            SaveSeans();
         }
     }
 }

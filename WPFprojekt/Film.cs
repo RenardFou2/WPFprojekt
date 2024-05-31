@@ -27,6 +27,13 @@ namespace WPFprojekt
             Dlugosc = dlugosc;
             Nazwa = name;
         }
+        public Film()
+        {
+            Dlugosc = 0;
+            Nazwa = "";
+            Gatunek = "";
+            Director = "";
+        }
 
     }
 }
