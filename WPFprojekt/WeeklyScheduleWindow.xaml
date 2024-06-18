@@ -5,9 +5,54 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPFprojekt"
         mc:Ignorable="d"
-        Title="Seanse w tym tygodniu" Height="450" Width="800">
+        Title="Seanse w tym tygodniu" Height="600" Width="800">
+    <Window.Resources>
+        <!-- Styl animowanego przycisku -->
+        <Style x:Key="AnimatedButtonStyle" TargetType="Button">
+            <Setter Property="RenderTransformOrigin" Value="0.5,0.5" />
+            <Setter Property="RenderTransform">
+                <Setter.Value>
+                    <ScaleTransform ScaleX="1" ScaleY="1" />
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Trigger.EnterActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)" To="1.2" Duration="0:0:0.2" />
+                                <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" To="1.2" Duration="0:0:0.2" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.EnterActions>
+                    <Trigger.ExitActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)" To="1" Duration="0:0:0.2" />
+                                <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" To="1" Duration="0:0:0.2" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.ExitActions>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Styl dla ListViewItem -->
+        <Style TargetType="ListViewItem">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="PaleVioletRed"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
     <Grid>
-        <ListView Name="WeeklyScheduleListView">
+
+        <!-- Lista seansów -->
+        <ListView Name="WeeklyScheduleListView" Margin="10,10,10,0">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Tytuł" DisplayMemberBinding="{Binding Nazwa}" Width="150"/>
@@ -19,6 +64,14 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Content="Drukuj harmonogram" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10" Click="PrintSchedule_Click"/>
+
+        <!-- Nagłówek tabeli -->
+        <TextBlock Text="Liczba seansów na dzień" FontSize="16" HorizontalAlignment="Center" Margin="0,220,0,0"/>
+
+        <!-- Canvas dla wykresu -->
+        <Canvas Name="chartCanvas" Height="200" Margin="10,240,10,130"/>
+
+        <!-- Przycisk do drukowania -->
+        <Button Content="Drukuj harmonogram" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10" Click="PrintSchedule_Click" Style="{StaticResource AnimatedButtonStyle}"/>
     </Grid>
 </Window>

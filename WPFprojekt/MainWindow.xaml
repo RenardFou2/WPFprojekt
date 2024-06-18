@@ -9,8 +9,37 @@
         Title="Seanse"
         Height="550"
         Width="400"
-        Loaded="WindowLoaded"
-        Closing="WindowClosing">
+        Loaded="WindowLoaded">
+    <Window.Resources>
+        <Style x:Key="AnimatedButtonStyle" TargetType="Button">
+            <Setter Property="RenderTransformOrigin" Value="0.5,0.5" />
+            <Setter Property="RenderTransform">
+                <Setter.Value>
+                    <ScaleTransform ScaleX="1" ScaleY="1" />
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Trigger.EnterActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)" To="1.2" Duration="0:0:0.2" />
+                                <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" To="1.2" Duration="0:0:0.2" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.EnterActions>
+                    <Trigger.ExitActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)" To="1" Duration="0:0:0.2" />
+                                <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" To="1" Duration="0:0:0.2" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.ExitActions>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
 
     <Grid Margin="5">
         <Grid.ColumnDefinitions>
@@ -20,6 +49,7 @@
 
         <ListBox Grid.Column="0"
                  Name="SeanseListBox"
+    
                  ItemsSource="{Binding Path=Seanse, RelativeSource={RelativeSource FindAncestor, 
                     AncestorType={x:Type Window}}, Mode=OneTime}"
                  SelectedIndex="{Binding Path=SelectedIndex, RelativeSource={RelativeSource FindAncestor,
@@ -30,7 +60,8 @@
         <DockPanel Grid.Column="1">
             <StackPanel DockPanel.Dock="Top"
                         DataContext="{Binding ElementName=SeanseListBox,Path=SelectedItem}">
-                <GroupBox>
+
+                <GroupBox BorderBrush="Gray" BorderThickness="1" >
                     <GroupBox.Header>
                         <CheckBox ToolTip ="Wyświetla szczegóły seansu. Pozwala na edycję." 
                                   IsChecked="{Binding Path=DetailsChecked, RelativeSource={RelativeSource FindAncestor,
@@ -55,7 +86,6 @@
                             <ColumnDefinition Width="auto"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-
 
                         <Label Grid.Column="0" Grid.Row="0">Tytuł</Label>
                         <TextBox Grid.Column="1" Grid.Row="0" Margin="2" 
@@ -93,7 +123,7 @@
             </StackPanel>
 
             <StackPanel DockPanel.Dock="Top">
-                <GroupBox>
+                <GroupBox BorderBrush="Gray" BorderThickness="1" >
                     <GroupBox.Header>
                         <CheckBox ToolTip="Jeszcze nie zaimplementowane" IsChecked="{Binding Path=FiltersChecked, RelativeSource={RelativeSource FindAncestor,
                     AncestorType={x:Type Window}}, Mode=TwoWay}">Filtry</CheckBox>
@@ -115,7 +145,6 @@
                             <ColumnDefinition Width="auto"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-
 
                         <Label Grid.Column="0" Grid.Row="0">Tytuł</Label>
                         <TextBox Name="titleTextBox" Grid.Column="1" Grid.Row="0" Margin="2"/>
@@ -139,29 +168,21 @@
                                   SelectedValue="{Binding Path=KinoId, Mode=OneWay}"
                                   SelectedValuePath="Id"
                                   DisplayMemberPath="Name"/>
-                        <Button Grid.Column="0" Grid.Row="6" Margin="2" Click="ApplyFiltersClick">Aplikuj filtry</Button>
+                        <Button Grid.Column="0" Grid.Row="6" Margin="2" Click="ApplyFiltersClick" Content="Aplikuj filtry" Style="{StaticResource AnimatedButtonStyle}"/>
                     </Grid>
                 </GroupBox>
             </StackPanel>
 
             <StackPanel VerticalAlignment="Bottom">
+                <Image Source="Img/wpf.jpg" Height="42" Width="102"/>
                 <Button Margin="3" VerticalAlignment="Bottom"
-                        IsEnabled="{Binding Path=ItemSelected,
-                         RelativeSource={RelativeSource FindAncestor,   
-                         AncestorType={x:Type Window}}, Mode=OneWay}" Click="DeleteMovieClick">
-                    Usuń
-                </Button>
+                        IsEnabled="{Binding ItemSelected, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type Window}, Mode=FindAncestor}}" Click="DeleteMovieClick" Content="Usuń" Style="{StaticResource AnimatedButtonStyle}"/>
                 <Button DockPanel.Dock="Bottom"
-                    VerticalAlignment="Bottom"
-                    Margin="3" Click="AddMovieClick">
-                    Dodaj nowy seans
-                </Button>
-
+                        VerticalAlignment="Bottom"
+                        Margin="3" Click="AddMovieClick" Content="Dodaj nowy seans" Style="{StaticResource AnimatedButtonStyle}"/>
                 <Button DockPanel.Dock="Bottom"
-                    VerticalAlignment="Bottom"
-                    Margin="3" Click="OpenWeeklyScheduleClick">
-                    Otwórz harmonogram seansów
-                </Button>
+                        VerticalAlignment="Bottom"
+                        Margin="3" Click="OpenWeeklyScheduleClick" Content="Otwórz harmonogram seansów" Style="{StaticResource AnimatedButtonStyle}"/>
             </StackPanel>
         </DockPanel>
     </Grid>
