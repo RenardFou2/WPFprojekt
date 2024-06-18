@@ -9,8 +9,9 @@
         Title="Seanse"
         Height="550"
         Width="400"
-        Loaded="WindowLoaded">
-    
+        Loaded="WindowLoaded"
+        Closing="WindowClosing">
+
     <Grid Margin="5">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
@@ -148,23 +149,20 @@
                         IsEnabled="{Binding Path=ItemSelected,
                          RelativeSource={RelativeSource FindAncestor,   
                          AncestorType={x:Type Window}}, Mode=OneWay}" Click="DeleteMovieClick">
-                Usuń
-            </Button>
-            <Button DockPanel.Dock="Bottom"
+                    Usuń
+                </Button>
+                <Button DockPanel.Dock="Bottom"
                     VerticalAlignment="Bottom"
                     Margin="3" Click="AddMovieClick">
                     Dodaj nowy seans
-            </Button>
+                </Button>
 
-            <Button DockPanel.Dock="Bottom"
+                <Button DockPanel.Dock="Bottom"
                     VerticalAlignment="Bottom"
                     Margin="3" Click="OpenWeeklyScheduleClick">
                     Otwórz harmonogram seansów
-            </Button>
+                </Button>
             </StackPanel>
-       
-            
         </DockPanel>
     </Grid>
 </Window>
-

@@ -16,12 +16,15 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Forms;
+using Application = System.Windows.Application;
+using System.Drawing;
 
 namespace WPFprojekt
 {
-    
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
+        private NotifyIcon _notifyIcon;
 
         public static Kino[] Kina { get; } = new Kino[]
         {
@@ -30,13 +33,13 @@ namespace WPFprojekt
             new Kino(2, "Helios, Jurowiecka 1"),
             new Kino(3, "Forum, Legionowa 5"),
             new Kino(4, "TON, Rynek Kościuszki 2"),
-
         };
 
         public MainWindow()
         {
             InitializeComponent();
             DataContext = this;
+
             Filmy = new ObservableCollection<Film>
             {
                 new Film(84, "Borat", "Komedia" , "Larry Charles"),
@@ -50,7 +53,9 @@ namespace WPFprojekt
                 new Film(94, "Kung Fu Panda 4", "Kreskówka" , "Mike Mitchell"),
                 new Film(109, "Rango", "Kreskówka" , "Gore Verbiński"),
             };
+
             LoadSeans();
+            InitializeTrayIcon();
         }
 
         private const string FilePath = "seanse.json";
@@ -139,8 +144,7 @@ namespace WPFprojekt
 
         private void DeleteMovieClick(object sender, RoutedEventArgs e)
         {
-            
-            MessageBoxResult result = MessageBox.Show("Czy na pewno chcesz usunąć ten seans?", 
+            MessageBoxResult result = System.Windows.MessageBox.Show("Czy na pewno chcesz usunąć ten seans?",
                 "Potwierdzenie usunięcia", MessageBoxButton.YesNo, MessageBoxImage.Warning);
 
             if (result == MessageBoxResult.Yes)
@@ -179,13 +183,50 @@ namespace WPFprojekt
 
         private void ApplyFiltersClick(object sender, RoutedEventArgs e)
         {
-
+           
         }
 
         protected override void OnClosing(CancelEventArgs e)
         {
             base.OnClosing(e);
             SaveSeans();
+        }
+
+        private void WindowClosing(object sender, CancelEventArgs e)
+        {
+            e.Cancel = true;  
+            Hide();
+        }
+
+        private void InitializeTrayIcon()
+        {
+            _notifyIcon = new NotifyIcon
+            {
+                Icon = new Icon(Application.GetResourceStream(new Uri("/WPFprojekt;component/ico/icon.ico", UriKind.Relative)).Stream),
+                Visible = true,
+                Text = "WPFprojekt"
+            };
+
+            _notifyIcon.DoubleClick += (s, args) =>
+            {
+                Show();
+                WindowState = WindowState.Normal;
+            };
+
+            var contextMenu = new ContextMenuStrip();
+            contextMenu.Items.Add("Otwórz", null, (s, e) =>
+            {
+                Show();
+                WindowState = WindowState.Normal;
+            });
+            contextMenu.Items.Add("Zamknij", null, (s, e) =>
+            {
+                _notifyIcon.Visible = false;
+                _notifyIcon.Dispose();
+                System.Windows.Application.Current.Shutdown();
+            });
+
+            _notifyIcon.ContextMenuStrip = contextMenu;
         }
     }
 }
